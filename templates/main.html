@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Template Web App</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	  <script src="https://cdn.ckeditor.com/4.6.2/basic/ckeditor.js"></script>
+   		 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	 	 <script type=text/javascript>
+  			$SCRIPT_ROOT = {{ request.script_root|tojson }};
+      </script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/assets/css/main.css">
+	  <style>
+			table {
+			  font-family: arial, sans-serif;
+			  border-collapse: collapse;
+			  width: 100%;
+			}
+
+			td, th {
+			  border: 1px solid #dddddd;
+			  text-align: left;
+			  padding: 8px;
+			}
+
+			tr:nth-child(even) {
+			  background-color: #dddddd;
+			}
+	   </style>
+  </head>
+  <body>
+  					<div id="popup1" class="popx">
+      				  <div id="popupcont1">
+       				     <p>Please Specify The Required Parameters:</p>
+						      <div class="row row-cols-1 text-left" style="padding: 10px;">
+										<div class="col">
+													<p><label class="text-white">Parameter 1:&nbsp; &nbsp;</label><input type=text size=5 name=a></input>
+													<p><label class="text-white">Parameter 2:&nbsp; &nbsp;</label><input type=text size=5 name=b>
+													<p><label class="text-white">Parameter 3:&nbsp; &nbsp;</label><input type=text size=5 name=c>
+													<p><label class="text-white">Parameter 4:&nbsp; &nbsp;</label><input type=text size=5 name=d>
+													<p><label class="text-white">Parameter 5:&nbsp; &nbsp;</label><input type=text size=5 name=e>
+													<p><label class="text-white">Parameter 6:&nbsp; &nbsp;</label><input type=text size=5 name=f>
+													<p><label class="text-white">Parameter 7:&nbsp; &nbsp;</label><input type=text size=5 name=g>
+													<p><label class="text-white">Parameter 8:&nbsp; &nbsp;</label><input type=text size=5 name=h>
+										</div>
+
+							  </div>
+     				       <input type="button" value="Close" id="closer1">
+					  </div>
+   					</div>
+					<div id="popup2" class="popx">
+      				  <div id="popupcont2">
+						  <form id="upload-file" method="post" enctype="multipart/form-data">
+							  <fieldset>
+								  <label for="sfiles">Select Multiple files</label>
+								  <input type="file" id="sfiles" name="files[]" multiple>
+							  </fieldset>
+						  </form>
+     				       <input type="button" value="Close" id="closer2">
+					  </div>
+   					</div>
+					<div id="popup3" class="popx">
+      				  <div id="popupcont3">
+       				     	  <form id="upload-file-single">
+							  <fieldset>
+								  <label for="sfilessingle">Select a file</label>
+								  <input type="file" id="sfilessingle" name="singlefiles[]" multiple>
+							  </fieldset>
+								  <fieldset>
+									  <button id="upload-file-single-btn" type="button">Upload</button>
+								  </fieldset>
+							  </form>
+						  <input type="button" value="Close" id="closer3">
+					  </div>
+   					</div>
+
+					<div id="popupfinal" class="popx">
+      				  <div id="popupcontfinal">
+       				     <p>The required settings and parameters are sent to background program.</p>
+					  </div>
+   					</div>
+
+					<div id="popupres1" class="popx">
+      				  <div id="popupcontres1">
+       				     <p>Initial Settings (Parameters):</p>
+						      <div class="row row-cols-1 text-left" style="padding: 10px;">
+										<div class="col" id="tableholder">
+										</div>
+							  </div>
+     				       <input type="button" value="Close" id="closerres1">
+					  </div>
+   					</div>
+					<div id="popupres2" class="popx">
+      				  <div id="popupcontres2">
+       				     <p>Results of Operation (Multiple file upload):</p>
+						      <div id="textmulticont" class="row row-cols-1 text-left" style="padding: 10px;">
+										<div class="col" id="holder">
+										</div>
+							  </div>
+     				       <input type="button" value="Close" id="closerres2">
+					  </div>
+   					</div>
+					<div id="popupres3" class="popx">
+      				  <div id="popupcontres3">
+       				     <p>Results of Operation (single file upload):</p>
+						      <div id="textsinglecont" class="row row-cols-1 text-left" style="padding: 10px;">
+										<div class="col" id="holder2">
+
+										</div>
+							  </div>
+     				       <input type="button" value="Close" id="closerres3">
+					  </div>
+   					</div>
+					<div id="popupresfinal" class="popx">
+      				  <div id="popupcontresfinal">
+       				     <p>The initial settings and the necessary files have been processed. </p>
+						  <p>The final settings are ready to be run server side.</p>
+						      <div class="row row-cols-1 text-left" style="padding: 10px;">
+										<div class="col" id="holderfinal">
+										</div>
+							  </div>
+     				       <input type="button" value="Close" id="closerresfinal">
+					  </div>
+   					</div>
+	<div class="container">
+					<nav class="navbar navbar-default">
+						  <div class="container">
+							<div class="navbar-header">
+							  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+								<span class="sr-only">Toggle navigation</span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+							  </button>
+							  <a class="navbar-brand" href="#">IMMS</a>
+							</div>
+							<div id="navbar" class="collapse navbar-collapse">
+							  <ul class="nav navbar-nav">
+								<li><a href="/">HOME</a></li>
+								<li><a href="/calculator">CALCULATORS</a></li>
+								<li><a href="/database">DATABASE</a></li>
+								<li><a href="/articles">ARTICLES</a></li>
+								<li><a href="/about">ABOUT</a></li>
+							  </ul>
+
+							  <ul class="nav navbar-nav navbar-right">
+								{% if session.logged_in %}
+								  <li><a href="/dashboard">Dashboard</a></li>
+								  <li><a href="/logout">Logout</a></li>
+								{% else %}
+								  <li><a href="/register">Register</a></li>
+								  <li><a href="/login">Login</a></li>
+								{% endif %}
+
+							  </ul>
+							</div><!--/.nav-collapse -->
+						  </div>
+						</nav>
+
+					{% with messages = get_flashed_messages(with_categories=true) %}
+							  {% if messages %}
+								{% for category, message in messages %}
+								  <div class="alert alert-{{ category }}">{{ message }}</div>
+								{% endfor %}
+							  {% endif %}
+							{% endwith %}
+
+							{% if error %}
+							  <div class="alert alert-danger">{{error}}</div>
+							{% endif %}
+
+							{% if msg %}
+							  <div class="alert alert-success">{{msg}}</div>
+							{% endif %}
+						<div id="promto1" style="margin-bottom: 100px;">
+							  <div  class="jumbotron">
+								<h1>Template For Communication Between Forms</h1>
+								<p class="lead">Experimental Design</p>
+							  </div>
+									<div  class="container">
+										<h2>Template for Communicating Between Forms Without Reloading</h2>
+
+										<div id="dftpage" class="row">
+											<div class="col-md-4 colbackground">
+												<h3>Upload</h3>
+												<p>Upload Single File</p>
+												<div href="/dftcalc" class="btn btn-primary btn-lg" id="buttonz">Single File Uploading</div></input><input href="/dftcalc" class="btn btn-primary btn-lg" style="padding:10px;" type="button" id="buttonz2" value="Results"></input>
+											</div>
+
+
+										<div class="col-md-4 colbackground">
+												<h3>Upload</h3>
+												<p>Upload Multiple Files</p>
+												<div href="/dftcalc" class="btn btn-primary btn-lg" id="button2">Multi. Files Uploading</div></input><input href="/dftcalc" class="btn btn-primary btn-lg" style="padding:10px;" type="button" id="buttony2" value="Results"></input>
+											</div>
+											<div class="col-md-4 colbackground">
+												<h3>Parameters</h3>
+												<p>Input Parameters</p>
+												<input href="/dftcalc" class="btn btn-primary btn-lg" type="button" id="buttonx1" value="Parameter Setting"></input><input href="/dftcalc" class="btn btn-primary btn-lg" style="padding:10px;" type="button" id="buttonx2" value="Results"></input>
+											</div>
+
+											<div class="col-md-4 colbackground" style>
+												<h3>Finalizing Process</h3>
+												<p>Results for post processing</p>
+												<div href="/dftcalc" class="btn btn-primary btn-lg" id="button3">Finalizing</div>
+											</div>
+
+											<div class="col-md-4 colbackground" style>
+												<h3>Run The Program</h3>
+												<p>Click this button to run the program in background</p>
+												<div href="/dftcalc" class="btn btn-primary btn-lg" id="buttonrun">Run</div>
+											</div>
+
+									</div>
+
+							</div>
+							</div>
+
+							<style>
+							#textmulticont{
+							width:65vw !important;
+							}
+							#textsinglecont{
+							width:65vw !important;
+							}
+							#holder{
+							white-space: pre-wrap;
+    						overflow: auto;
+    						height:60vh;
+							}
+							#holder2{
+							white-space: pre-wrap;
+    						overflow: auto;
+    						height:60vh;
+							}
+							.btn{
+							margin : 5px;
+							}
+							.col-md-4{
+							border-radius:15px;
+							box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+							}
+							.col-md-4:hover{
+							box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+							}
+							.jumbotron{
+							border-radius:15px;
+							box-shadow: 0 3px 4px rgba(0,0,0,0.10), 0 3px 4px rgba(0,0,0,0.15);
+							}
+								 #popupcont1{
+									background-color: white !important;
+									padding: 50px;
+									display: flex;
+									justify-content: center;
+									align-items: center;
+									flex-direction: column;
+									border-radius: 15px;
+								}
+								#popupcont2{
+									background-color: white !important;
+									padding: 50px;
+									display: flex;
+									justify-content: center;
+									align-items: center;
+									flex-direction: column;
+									border-radius: 15px;
+								}
+								#popupcont3{
+									background-color: white !important;
+									padding: 50px;
+									display: flex;
+									justify-content: center;
+									align-items: center;
+									flex-direction: column;
+									border-radius: 15px;
+								}
+								#popupcontfinal{
+									background-color: white !important;
+									padding: 50px;
+									display: flex;
+									justify-content: center;
+									align-items: center;
+									flex-direction: column;
+									border-radius: 15px;
+								}
+								#popupcontres1{
+									background-color: white !important;
+									padding: 50px;
+									display: flex;
+									justify-content: center;
+									align-items: center;
+									flex-direction: column;
+									border-radius: 15px;
+								}
+								#popupcontres2{
+									background-color: white !important;
+									padding: 50px;
+									display: flex;
+									justify-content: center;
+									align-items: center;
+									flex-direction: column;
+									border-radius: 15px;
+								}
+								#popupcontres3{
+									background-color: white !important;
+									padding: 50px;
+									display: flex;
+									justify-content: center;
+									align-items: center;
+									flex-direction: column;
+									border-radius: 15px;
+								}
+								#popupcontresfinal{
+									background-color: white !important;
+									padding: 50px;
+									display: flex;
+									justify-content: center;
+									align-items: center;
+									flex-direction: column;
+									border-radius: 15px;
+								}
+								.popx{
+									position: fixed;
+									width: 100%;
+									height: 100vh;
+									justify-content: center;
+									align-items: center;
+									flex-direction: column;
+									display: none;
+									background-color: rgba(0, 0, 0, .7);
+									z-index: 1000;
+								}
+
+							</style>
+
+							<script type="application/javascript">
+								document.getElementById('buttonx1').addEventListener("click", function(){
+									document.getElementById('popup1').style.display = "flex";
+								  });
+								  document.getElementById('closer1').addEventListener("click", function(){
+									document.getElementById('popup1').style.display = "none";
+								  });
+							</script>
+
+							<script type="application/javascript">
+								document.getElementById('button2').addEventListener("click", function(){
+									document.getElementById('popup2').style.display = "flex";
+								  });
+								  document.getElementById('closer2').addEventListener("click", function(){
+									document.getElementById('popup2').style.display = "none";
+								  });
+							</script>
+
+							<script type="application/javascript">
+								document.getElementById('buttonz').addEventListener("click", function(){
+									document.getElementById('popup3').style.display = "flex";
+								  });
+								  document.getElementById('closer3').addEventListener("click", function(){
+									document.getElementById('popup3').style.display = "none";
+								  });
+							 </script>
+
+							<script type="application/javascript">
+								document.getElementById('buttonx2').addEventListener("click", function(){
+									document.getElementById('popupres1').style.display = "flex";
+								  });
+								  document.getElementById('closerres1').addEventListener("click", function(){
+									document.getElementById('popupres1').style.display = "none";
+								  });
+							 </script>
+							<script type="application/javascript">
+								document.getElementById('buttony2').addEventListener("click", function(){
+									document.getElementById('popupres2').style.display = "flex";
+								  });
+								  document.getElementById('closerres2').addEventListener("click", function(){
+									document.getElementById('popupres2').style.display = "none";
+								  });
+							 </script>
+							<script type="application/javascript">
+								document.getElementById('button3').addEventListener("click", function(){
+									document.getElementById('popupresfinal').style.display = "flex";
+								  });
+								  document.getElementById('closerresfinal').addEventListener("click", function(){
+									document.getElementById('popupresfinal').style.display = "none";
+								  });
+							 </script>
+							 <script type="application/javascript">
+								document.getElementById('buttonz2').addEventListener("click", function(){
+									document.getElementById('popupres3').style.display = "flex";
+								  });
+								  document.getElementById('closerres3').addEventListener("click", function(){
+									document.getElementById('popupres3').style.display = "none";
+								  });
+							 </script>
+					<script>
+							var singlestr;
+							$(function() {
+							$('#upload-file-single-btn').click(function() {
+								var form_data = new FormData();
+								form_data.append("singlefiles", $("#sfilessingle")[0].files[0]);
+
+								$.ajax({
+									type: 'POST',
+									url: '/single-file-upload',
+									data: form_data,
+									contentType: false,
+									cache: false,
+									processData: false,
+									success: function(data) {
+										singlestr=data.resultsingle;
+										console.log('Files Uploaded Successfully!');
+										  $("#holder2").text(data.resultsingle);
+
+									},
+								});
+							});
+						});
+						  </script>
+						  <script>
+						$(function() {
+							$('#buttonrun').click(function() {
+								var form_data = new FormData();
+								form_data.append("senda", vara);
+								form_data.append("sendb", varb);
+								form_data.append("sendc", varc);
+								form_data.append("sendd", vard);
+								form_data.append("sende", vare);
+								form_data.append("sendf", varf);
+								form_data.append("sendg", varg);
+								form_data.append("sendh", varh);
+								form_data.append("sendmultistr", multistr);
+								form_data.append("sendsinglestr", singlestr);
+
+								$.ajax({
+									type: 'POST',
+									url: '/run-script',
+									data: form_data,
+									contentType: false,
+									cache: false,
+									processData: false,
+									success: function(data) {
+										console.log('Files Uploaded Successfully!');
+										$("#popupfinal").css("display", "flex");
+										$("#popupfinal").delay(4000).fadeOut(00);
+
+									},
+								});
+							});
+						});
+						  </script>
+
+						<script>
+							var vara, varb, varc, vard, vare, varf, varg, varh;
+							var multistr;
+							$(function() {
+							$('#button3').click(function() {
+								var form_data = new FormData();
+								var lenfile = document.getElementById('sfiles').files.length;
+								for(var x = 0; x < lenfile; x++){
+								  form_data.append('files[]',$('#sfiles')[0].files[x]);
+								}
+
+								//form_data.append("singlefiles", $("#sfilessingle")[0].files[0]);
+
+								var a = $('input[name="a"]').val();form_data.append("a", a);
+								vara=a;
+								var b = $('input[name="b"]').val();form_data.append("b", b);
+								varb=b;
+								var c = $('input[name="c"]').val();form_data.append("c", c);
+								varc=c;
+								var d = $('input[name="d"]').val();form_data.append("d", d);
+								vard=d;
+								var e = $('input[name="e"]').val();form_data.append("e", e);
+								vare=e;
+								var f = $('input[name="f"]').val();form_data.append("f", f);
+								varf=f;
+								var g = $('input[name="g"]').val();form_data.append("g", g);
+								varg=g;
+								var h = $('input[name="h"]').val();form_data.append("h", h);
+								varh=h;
+								$.ajax({
+									type: 'POST',
+									url: '/multiple-files-string-upload',
+									data: form_data,
+									contentType: false,
+									cache: false,
+									processData: false,
+									success: function(data) {
+										multistr=data.resultmulti;
+										console.log('Files Uploaded Successfully!');
+										 x = getArray(data.resultparamname,data.resultparamval);
+										  $("#tableholder").text('');
+										  $("#tableholder").append(makeTable(x));
+										  //$("#holder2").text(data.resultsingle);
+										  $("#holder").text(data.resultmulti);
+										  $("#popupresfinal").fadeOut(3000);
+
+									},
+								});
+							});
+						});
+						  </script>
+						  <script>
+								function getArray(table1, table2)
+							{
+								var i, out = [];//literal new array
+								for(i=0;i<table1.length;i++)
+								{
+									out.push([table1[i],table2[i]]);
+								}
+								return out;
+							}
+								function makeTable(array) {
+								var table = document.createElement('table');
+								var hd = document.createElement('tr');
+								var cel1 = document.createElement('th');
+								var cel2 = document.createElement('th');
+								cel1.textContent = 'Parameter';
+								cel2.textContent = 'Value';
+								hd.appendChild(cel1);
+								hd.appendChild(cel2);
+								table.appendChild(hd);
+
+								for (var i = 0; i < array.length; i++) {
+									var row = document.createElement('tr');
+									for (var j = 0; j < array[i].length; j++) {
+										var cell = document.createElement('td');
+										cell.textContent = array[i][j];
+										row.appendChild(cell);
+									}
+									table.appendChild(row);
+								}
+								return table;
+							}
+						</script>
+    </div>
+  </body>
+</html>
